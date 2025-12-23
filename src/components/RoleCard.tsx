@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import type { Player } from '@/types/game';
+import type { Player } from '@/domain/entities/Player';
 
 interface RoleCardProps {
   player: Player;

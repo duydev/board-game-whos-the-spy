@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { GameProvider } from '@/contexts/GameContext';
+import { GameProvider } from '@/presentation/contexts/GameContext';
 import { Layout } from '@/components/Layout';
 import { Setup } from '@/pages/Setup';
 import { Rules } from '@/pages/Rules';

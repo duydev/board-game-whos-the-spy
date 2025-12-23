@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { getAvailableCategories } from '@/utils/gameLogic';
+import { CategoryRepository } from '@/infrastructure/repositories/CategoryRepository';
 
 export const Setup = () => {
   const { t } = useTranslation(['pages/setup', 'errors', 'common']);
@@ -19,8 +19,16 @@ export const Setup = () => {
   const [totalPlayers, setTotalPlayers] = useState<number>(4);
   const [numberOfSpies, setNumberOfSpies] = useState<number>(1);
   const [category, setCategory] = useState<string>('random');
+  const [availableCategories, setAvailableCategories] = useState<string[]>([]);
 
-  const availableCategories = getAvailableCategories();
+  useEffect(() => {
+    const loadCategories = async () => {
+      const repo = new CategoryRepository();
+      const categories = await repo.getAvailableCategories();
+      setAvailableCategories(categories);
+    };
+    loadCategories();
+  }, []);
 
   const handleNext = () => {
     if (numberOfSpies >= totalPlayers) {

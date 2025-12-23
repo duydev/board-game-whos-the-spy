@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { useGame } from '@/contexts/GameContext';
+import { useGame } from '@/presentation/contexts/GameContext';
 import { Timer } from '@/components/Timer';
 import { PlayerCard } from '@/components/PlayerCard';
 
@@ -27,11 +27,15 @@ export const Discussion = () => {
   const activePlayers = gameState.players.filter((p) => !p.isEliminated);
   const currentPlayer = activePlayers[currentPlayerIndex];
 
-  const handleNextPlayer = () => {
+  const handleNextPlayer = async () => {
+    if (!gameState) return;
     if (currentPlayerIndex < activePlayers.length - 1) {
-      const nextIndex = currentPlayerIndex + 1;
-      setCurrentPlayerIndex(nextIndex);
-      nextDiscussionPlayer();
+      try {
+        await nextDiscussionPlayer();
+        // State will update via context
+      } catch (error) {
+        console.error('Failed to move to next player:', error);
+      }
     }
   };
 

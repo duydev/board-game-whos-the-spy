@@ -3,15 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { useGame } from '@/contexts/GameContext';
+import { useGame } from '@/presentation/contexts/GameContext';
 import { PlayerCard } from '@/components/PlayerCard';
 import { VoteResult } from '@/components/VoteResult';
-import { getVoteResults, getPlayerWithMostVotes } from '@/utils/gameLogic';
 
 export const Voting = () => {
   const { t } = useTranslation(['pages/voting', 'errors', 'common']);
   const navigate = useNavigate();
-  const { gameState, submitVote, finishVoting } = useGame();
+  const { gameState, submitVote, finishVoting, getVoteResults, getPlayerWithMostVotes } = useGame();
   const [selectedPlayerId, setSelectedPlayerId] = useState<string | null>(null);
   const [currentVoterId, setCurrentVoterId] = useState<string | null>(null);
   const [showResults, setShowResults] = useState(false);
@@ -29,11 +28,24 @@ export const Voting = () => {
     if (firstNonVoter) {
       setCurrentVoterId(firstNonVoter.id);
       setSelectedPlayerId(null);
-    } else {
+      setShowResults(false);
+    } else if (activePlayers.length > 0) {
       // All players have voted
       setShowResults(true);
     }
   }, [gameState, navigate]);
+
+  // Navigate based on game state changes after finishing voting
+  useEffect(() => {
+    if (!gameState || !showResults) return;
+
+    if (gameState.isGameOver) {
+      const timeout = setTimeout(() => {
+        navigate('/result');
+      }, 2000);
+      return () => clearTimeout(timeout);
+    }
+  }, [gameState, showResults, navigate]);
 
   if (!gameState) return null;
 
@@ -41,60 +53,38 @@ export const Voting = () => {
   const currentVoter = activePlayers.find((p) => p.id === currentVoterId);
   const votersRemaining = activePlayers.filter((p) => !gameState.votes[p.id]).length;
 
-  const handleVote = () => {
-    if (!selectedPlayerId || !currentVoterId) return;
+  const handleVote = async () => {
+    if (!selectedPlayerId || !currentVoterId || !gameState) return;
     if (selectedPlayerId === currentVoterId) {
       alert(t('errors:cannotVoteSelf'));
       return;
     }
 
-    submitVote(currentVoterId, selectedPlayerId);
-    setSelectedPlayerId(null);
+    try {
+      await submitVote(currentVoterId, selectedPlayerId);
+      setSelectedPlayerId(null);
+    } catch (error) {
+      console.error('Failed to submit vote:', error);
+      return;
+    }
 
-    // Check if all have voted
-    const updatedVotes = { ...gameState.votes, [currentVoterId]: selectedPlayerId };
-    const allVoted = activePlayers.every((player) => updatedVotes[player.id]);
+    // Check if all have voted - need to check updated state
+    // This will be handled by useEffect when gameState updates
+  };
 
-    if (allVoted) {
-      setTimeout(() => {
-        setShowResults(true);
-      }, 500);
-    } else {
-      // Move to next voter
-      const nextVoter = activePlayers.find((p) => !updatedVotes[p.id]);
-      if (nextVoter) {
-        setCurrentVoterId(nextVoter.id);
-      }
+  const handleFinishVoting = async () => {
+    if (!gameState) return;
+
+    try {
+      await finishVoting();
+      // State will update automatically via context
+      // Navigation will happen in useEffect when isGameOver changes
+    } catch (error) {
+      console.error('Failed to finish voting:', error);
     }
   };
 
-  const handleFinishVoting = () => {
-    finishVoting();
-
-    // Check game state after elimination
-    const eliminatedPlayerId = getPlayerWithMostVotes(gameState);
-    if (eliminatedPlayerId) {
-      // Simulate elimination to check if game is over
-      const testPlayers = gameState.players.map((p) =>
-        p.id === eliminatedPlayerId ? { ...p, isEliminated: true } : p
-      );
-      const activeSpies = testPlayers.filter((p) => !p.isEliminated && p.role === 'spy').length;
-      const activeCivilians = testPlayers.filter(
-        (p) => !p.isEliminated && p.role === 'civilian'
-      ).length;
-
-      // Navigate based on win condition
-      setTimeout(() => {
-        if (activeSpies === 0 || activeSpies >= activeCivilians) {
-          navigate('/result');
-        } else {
-          navigate('/discussion');
-        }
-      }, 1500);
-    }
-  };
-
-  if (showResults) {
+  if (showResults && gameState) {
     const voteResults = getVoteResults(gameState);
     const eliminatedPlayerId = getPlayerWithMostVotes(gameState);
 

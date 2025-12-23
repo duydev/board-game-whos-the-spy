@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useGame } from '@/contexts/GameContext';
-import type { GameConfig } from '@/types/game';
+import { useGame } from '@/presentation/contexts/GameContext';
+import type { GameConfig } from '@/domain/entities/GameConfig';
 
 export const EnterNames = () => {
   const { t } = useTranslation(['pages/enterNames', 'errors', 'common']);
@@ -32,7 +32,7 @@ export const EnterNames = () => {
     setPlayerNames(newNames);
   };
 
-  const handleStart = () => {
+  const handleStart = async () => {
     // Validate names
     const trimmedNames = playerNames.map((name) => name.trim());
 
@@ -55,8 +55,13 @@ export const EnterNames = () => {
     }
 
     const config: GameConfig = JSON.parse(configStr);
-    startGame(config, trimmedNames);
-    navigate('/discussion');
+    try {
+      await startGame(config, trimmedNames);
+      navigate('/discussion');
+    } catch (error) {
+      console.error('Failed to start game:', error);
+      alert(t('errors:failedToStartGame') || 'Failed to start game');
+    }
   };
 
   return (

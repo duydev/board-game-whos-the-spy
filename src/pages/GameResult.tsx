@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { useGame } from '@/contexts/GameContext';
+import { useGame } from '@/presentation/contexts/GameContext';
 import { RoleCard } from '@/components/RoleCard';
 
 export const GameResult = () => {
@@ -15,15 +15,23 @@ export const GameResult = () => {
     return null;
   }
 
-  const handlePlayAgain = () => {
+  const handlePlayAgain = async () => {
     // Keep same players, reset game
-    resetGame();
-    navigate('/enter-names');
+    try {
+      await resetGame();
+      navigate('/enter-names');
+    } catch (error) {
+      console.error('Failed to reset game:', error);
+    }
   };
 
-  const handleNewGroup = () => {
-    resetGame();
-    navigate('/');
+  const handleNewGroup = async () => {
+    try {
+      await resetGame();
+      navigate('/');
+    } catch (error) {
+      console.error('Failed to reset game:', error);
+    }
   };
 
   const winnerText = gameState.winner === 'civilians' ? t('civiliansWin') : t('spiesWin');
