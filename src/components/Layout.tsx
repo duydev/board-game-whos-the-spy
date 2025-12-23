@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 
 interface LayoutProps {
@@ -6,6 +7,7 @@ interface LayoutProps {
 }
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const { t } = useTranslation('components/layout');
   const location = useLocation();
 
   return (
@@ -14,16 +16,16 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <Link to="/">
-              <h1 className="text-2xl font-bold">Ai là gián điệp?</h1>
+              <h1 className="text-2xl font-bold">{t('appTitle')}</h1>
             </Link>
             <nav className="flex gap-2">
               {location.pathname !== '/' && (
                 <Button variant="ghost" asChild>
-                  <Link to="/">Trang chủ</Link>
+                  <Link to="/">{t('home')}</Link>
                 </Button>
               )}
               <Button variant="ghost" asChild>
-                <Link to="/rules">Luật chơi</Link>
+                <Link to="/rules">{t('rules')}</Link>
               </Button>
             </nav>
           </div>

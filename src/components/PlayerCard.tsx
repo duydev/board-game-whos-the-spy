@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import type { Player } from '@/types/game';
@@ -17,13 +18,15 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({
   showWord = false,
   onClick,
 }) => {
+  const { t } = useTranslation('components/playerCard');
+
   const getRoleBadge = () => {
     if (!showRole) return null;
 
     if (player.role === 'spy') {
-      return <Badge variant="destructive">Gián điệp</Badge>;
+      return <Badge variant="destructive">{t('spy')}</Badge>;
     }
-    return <Badge variant="default">Dân thường</Badge>;
+    return <Badge variant="default">{t('civilian')}</Badge>;
   };
 
   return (
@@ -42,13 +45,13 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({
       <CardContent>
         {showWord && (
           <div className="mt-2">
-            <p className="text-sm text-muted-foreground">Từ khóa:</p>
+            <p className="text-sm text-muted-foreground">{t('keyword')}</p>
             <p className="text-lg font-semibold">{player.word || '?'}</p>
           </div>
         )}
         {player.isEliminated && (
           <Badge variant="outline" className="mt-2">
-            Đã bị loại
+            {t('eliminated')}
           </Badge>
         )}
       </CardContent>

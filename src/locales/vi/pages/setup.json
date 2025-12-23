@@ -1,0 +1,19 @@
+{
+  "title": "Thiết lập game",
+  "subtitle": "Chọn cấu hình cho game mới",
+  "totalPlayers": {
+    "title": "Số lượng người chơi",
+    "description": "Chọn số người sẽ tham gia (3-10 người)"
+  },
+  "numberOfSpies": {
+    "title": "Số lượng gián điệp",
+    "description": "Chọn số gián điệp (1-{{maxSpies}})",
+    "error": "Số gián điệp phải nhỏ hơn số người chơi!"
+  },
+  "category": {
+    "title": "Thể loại từ khóa",
+    "description": "Chọn thể loại từ khóa hoặc để ngẫu nhiên",
+    "placeholder": "Chọn thể loại",
+    "random": "Ngẫu nhiên"
+  }
+}

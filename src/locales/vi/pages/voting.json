@@ -1,0 +1,11 @@
+{
+  "title": "Bỏ phiếu",
+  "votingResults": "Kết quả bỏ phiếu",
+  "yourTurn": "Lượt của: {{name}} (Còn {{remaining}} người chưa vote)",
+  "alreadyVoted": "Bạn đã bỏ phiếu. Đợi người khác...",
+  "selectSuspect": "Chọn người bạn nghi ngờ là gián điệp",
+  "calculating": "Đang tính toán kết quả...",
+  "voteRecorded": "Đã ghi nhận phiếu bầu của bạn.",
+  "waitingOthers": "Vui lòng đợi các người chơi khác...",
+  "eliminated": "{{name}} đã bị loại!"
+}

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent } from '@/components/ui/card';
 
 interface TimerProps {
@@ -8,6 +9,7 @@ interface TimerProps {
 }
 
 export const Timer: React.FC<TimerProps> = ({ initialTime, onTimeUp, isRunning = true }) => {
+  const { t } = useTranslation('components/timer');
   const [timeRemaining, setTimeRemaining] = useState(initialTime);
 
   useEffect(() => {
@@ -53,7 +55,7 @@ export const Timer: React.FC<TimerProps> = ({ initialTime, onTimeUp, isRunning =
         <div className="text-center">
           <div className={`text-4xl font-bold ${getColorClass()}`}>{formattedTime}</div>
           <div className="text-sm text-muted-foreground mt-2">
-            {isRunning ? 'Đang đếm ngược' : 'Đã dừng'}
+            {isRunning ? t('countingDown') : t('stopped')}
           </div>
         </div>
       </CardContent>

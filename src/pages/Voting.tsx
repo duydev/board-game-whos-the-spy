@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useGame } from '@/contexts/GameContext';
@@ -8,6 +9,7 @@ import { VoteResult } from '@/components/VoteResult';
 import { getVoteResults, getPlayerWithMostVotes } from '@/utils/gameLogic';
 
 export const Voting = () => {
+  const { t } = useTranslation(['pages/voting', 'errors', 'common']);
   const navigate = useNavigate();
   const { gameState, submitVote, finishVoting } = useGame();
   const [selectedPlayerId, setSelectedPlayerId] = useState<string | null>(null);
@@ -42,7 +44,7 @@ export const Voting = () => {
   const handleVote = () => {
     if (!selectedPlayerId || !currentVoterId) return;
     if (selectedPlayerId === currentVoterId) {
-      alert('Bạn không thể vote cho chính mình!');
+      alert(t('errors:cannotVoteSelf'));
       return;
     }
 
@@ -99,7 +101,7 @@ export const Voting = () => {
     return (
       <div className="max-w-4xl mx-auto space-y-6">
         <div className="text-center">
-          <h1 className="text-4xl font-bold mb-2">Kết quả bỏ phiếu</h1>
+          <h1 className="text-4xl font-bold mb-2">{t('votingResults')}</h1>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -117,7 +119,9 @@ export const Voting = () => {
           <Card className="border-destructive">
             <CardHeader>
               <CardTitle className="text-destructive text-center">
-                {gameState.players.find((p) => p.id === eliminatedPlayerId)?.name} đã bị loại!
+                {t('eliminated', {
+                  name: gameState.players.find((p) => p.id === eliminatedPlayerId)?.name,
+                })}
               </CardTitle>
             </CardHeader>
           </Card>
@@ -125,7 +129,7 @@ export const Voting = () => {
 
         <div className="flex justify-center">
           <Button onClick={handleFinishVoting} size="lg">
-            Tiếp tục
+            {t('common:buttons.continue')}
           </Button>
         </div>
       </div>
@@ -136,11 +140,11 @@ export const Voting = () => {
     return (
       <div className="max-w-4xl mx-auto space-y-6">
         <div className="text-center">
-          <h1 className="text-4xl font-bold mb-2">Bỏ phiếu</h1>
+          <h1 className="text-4xl font-bold mb-2">{t('title')}</h1>
         </div>
         <Card>
           <CardContent className="py-8 text-center">
-            <p>Đang tính toán kết quả...</p>
+            <p>{t('calculating')}</p>
           </CardContent>
         </Card>
       </div>
@@ -153,18 +157,18 @@ export const Voting = () => {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="text-center">
-        <h1 className="text-4xl font-bold mb-2">Bỏ phiếu</h1>
+        <h1 className="text-4xl font-bold mb-2">{t('title')}</h1>
         <p className="text-muted-foreground">
           {hasVoted
-            ? 'Bạn đã bỏ phiếu. Đợi người khác...'
-            : `Lượt của: ${currentVoter.name} (Còn ${votersRemaining} người chưa vote)`}
+            ? t('alreadyVoted')
+            : t('yourTurn', { name: currentVoter.name, remaining: votersRemaining })}
         </p>
       </div>
 
       {!hasVoted && (
         <Card>
           <CardHeader>
-            <CardTitle>Chọn người bạn nghi ngờ là gián điệp</CardTitle>
+            <CardTitle>{t('selectSuspect')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -179,7 +183,7 @@ export const Voting = () => {
             </div>
             <div className="mt-6 flex justify-center">
               <Button onClick={handleVote} disabled={!selectedPlayerId} size="lg">
-                Xác nhận bỏ phiếu
+                {t('common:buttons.confirmVote')}
               </Button>
             </div>
           </CardContent>
@@ -189,8 +193,8 @@ export const Voting = () => {
       {hasVoted && (
         <Card>
           <CardContent className="py-8 text-center">
-            <p className="text-lg">Đã ghi nhận phiếu bầu của bạn.</p>
-            <p className="text-muted-foreground">Vui lòng đợi các người chơi khác...</p>
+            <p className="text-lg">{t('voteRecorded')}</p>
+            <p className="text-muted-foreground">{t('waitingOthers')}</p>
           </CardContent>
         </Card>
       )}

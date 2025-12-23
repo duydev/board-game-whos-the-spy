@@ -1,0 +1,8 @@
+{
+  "title": "Vòng thảo luận",
+  "round": "Vòng {{round}}",
+  "currentPlayer": "Người chơi hiện tại: {{name}}",
+  "yourKeyword": "Từ khóa của bạn:",
+  "spyMessage": "Bạn là gián điệp! Hãy cố gắng đoán và mô tả sao cho không bị phát hiện.",
+  "civilianMessage": "Hãy mô tả từ khóa này mà không nói trực tiếp từ đó."
+}

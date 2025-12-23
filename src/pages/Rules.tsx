@@ -1,44 +1,46 @@
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export const Rules = () => {
+  const { t } = useTranslation('pages/rules');
+
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="text-center">
-        <h1 className="text-4xl font-bold mb-2">Luật chơi "Ai là gián điệp?"</h1>
-        <p className="text-muted-foreground">Hướng dẫn chi tiết cách chơi</p>
+        <h1 className="text-4xl font-bold mb-2">{t('title')}</h1>
+        <p className="text-muted-foreground">{t('subtitle')}</p>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>1. Chuẩn bị</CardTitle>
+          <CardTitle>{t('preparation.title')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <p>Trước khi bắt đầu, bạn cần:</p>
+          <p>{t('preparation.description')}</p>
           <ul className="list-disc list-inside space-y-2 ml-4">
-            <li>Chọn số lượng người chơi (tối thiểu 3 người, tối đa 10 người)</li>
-            <li>Chọn số lượng gián điệp (thường là 1-2 gián điệp tùy số người chơi)</li>
-            <li>Chọn thể loại từ khóa hoặc để ngẫu nhiên</li>
-            <li>Nhập tên của tất cả người chơi</li>
+            {t('preparation.items', { returnObjects: true }).map((item: string, index: number) => (
+              <li key={index}>{item}</li>
+            ))}
           </ul>
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader>
-          <CardTitle>2. Phân vai</CardTitle>
+          <CardTitle>{t('roleAssignment.title')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <p>Sau khi setup, hệ thống sẽ tự động:</p>
+          <p>{t('roleAssignment.description')}</p>
           <ul className="list-disc list-inside space-y-2 ml-4">
-            <li>Chọn ngẫu nhiên một cặp từ từ thể loại đã chọn</li>
+            <li>{t('roleAssignment.items', { returnObjects: true })[0]}</li>
             <li>
-              Phân phối vai trò cho từng người chơi:
+              {t('roleAssignment.items', { returnObjects: true })[1]}
               <ul className="list-circle list-inside ml-6 mt-2">
                 <li>
-                  <strong>Dân thường:</strong> Nhận một từ khóa (một trong hai từ của cặp từ)
+                  <strong>{t('roleAssignment.civilianRole')}</strong>
                 </li>
                 <li>
-                  <strong>Gián điệp:</strong> Không biết từ khóa, chỉ thấy dấu "?"
+                  <strong>{t('roleAssignment.spyRole')}</strong>
                 </li>
               </ul>
             </li>
@@ -48,89 +50,79 @@ export const Rules = () => {
 
       <Card>
         <CardHeader>
-          <CardTitle>3. Vòng thảo luận</CardTitle>
+          <CardTitle>{t('discussion.title')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <p>Người chơi lần lượt mô tả từ khóa của mình:</p>
+          <p>{t('discussion.description')}</p>
           <ul className="list-disc list-inside space-y-2 ml-4">
-            <li>Mỗi người có 2 phút để thảo luận</li>
-            <li>
-              Người chơi lần lượt mô tả từ khóa của mình{' '}
-              <strong>KHÔNG được nói trực tiếp từ đó</strong>
-            </li>
-            <li>Dân thường sẽ mô tả từ khóa của mình</li>
-            <li>Gián điệp phải đoán và mô tả sao cho không bị phát hiện</li>
-            <li>Mọi người có thể đặt câu hỏi và thảo luận</li>
+            {t('discussion.items', { returnObjects: true }).map((item: string, index: number) => (
+              <li key={index}>{item}</li>
+            ))}
           </ul>
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader>
-          <CardTitle>4. Bỏ phiếu (Vote)</CardTitle>
+          <CardTitle>{t('voting.title')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <p>Sau khi thảo luận xong, tất cả người chơi sẽ bỏ phiếu:</p>
+          <p>{t('voting.description')}</p>
           <ul className="list-disc list-inside space-y-2 ml-4">
-            <li>Mỗi người chọn một người mà họ nghi ngờ là gián điệp</li>
-            <li>Không được bỏ phiếu cho chính mình</li>
-            <li>Người nhận được nhiều phiếu nhất sẽ bị loại</li>
-            <li>Nếu có nhiều người cùng số phiếu, hệ thống sẽ chọn ngẫu nhiên</li>
+            {t('voting.items', { returnObjects: true }).map((item: string, index: number) => (
+              <li key={index}>{item}</li>
+            ))}
           </ul>
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader>
-          <CardTitle>5. Điều kiện thắng</CardTitle>
+          <CardTitle>{t('winConditions.title')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <p>Trò chơi kết thúc khi một trong hai phe thắng:</p>
+          <p>{t('winConditions.description')}</p>
           <ul className="list-disc list-inside space-y-2 ml-4">
             <li>
-              <strong>Dân thường thắng:</strong> Khi tất cả gián điệp đã bị loại
+              <strong>{t('winConditions.civilianWin')}</strong>
             </li>
             <li>
-              <strong>Gián điệp thắng:</strong> Khi số lượng gián điệp còn lại bằng hoặc nhiều hơn
-              số dân thường còn lại
+              <strong>{t('winConditions.spyWin')}</strong>
             </li>
           </ul>
-          <p className="mt-4">
-            Nếu chưa có phe nào thắng, trò chơi tiếp tục với vòng thảo luận mới.
-          </p>
+          <p className="mt-4">{t('winConditions.continue')}</p>
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader>
-          <CardTitle>6. Kết thúc game</CardTitle>
+          <CardTitle>{t('gameEnd.title')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <p>Khi game kết thúc:</p>
+          <p>{t('gameEnd.description')}</p>
           <ul className="list-disc list-inside space-y-2 ml-4">
-            <li>Hệ thống sẽ hiển thị vai trò thực tế của từng người chơi</li>
-            <li>Hiển thị cặp từ khóa đã được sử dụng</li>
-            <li>Bạn có thể chọn "Chơi lại" với cùng nhóm hoặc "Tạo nhóm mới"</li>
+            {t('gameEnd.items', { returnObjects: true }).map((item: string, index: number) => (
+              <li key={index}>{item}</li>
+            ))}
           </ul>
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader>
-          <CardTitle>💡 Mẹo chơi</CardTitle>
+          <CardTitle>{t('tips.title')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <ul className="list-disc list-inside space-y-2 ml-4">
             <li>
-              <strong>Cho dân thường:</strong> Mô tả từ khóa một cách rõ ràng nhưng không quá trực
-              tiếp. Quan sát cách người khác mô tả để tìm gián điệp.
+              <strong>{t('tips.civilianTips')}</strong>
             </li>
             <li>
-              <strong>Cho gián điệp:</strong> Lắng nghe cẩn thận và mô tả một cách chung chung. Cố
-              gắng không quá khác biệt so với người khác.
+              <strong>{t('tips.spyTips')}</strong>
             </li>
-            <li>Đặt câu hỏi thông minh để phát hiện sự không nhất quán</li>
-            <li>Chú ý đến ngôn ngữ cơ thể và cách trả lời của người khác</li>
+            {t('tips.generalTips', { returnObjects: true }).map((item: string, index: number) => (
+              <li key={index}>{item}</li>
+            ))}
           </ul>
         </CardContent>
       </Card>

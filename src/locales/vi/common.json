@@ -1,0 +1,25 @@
+{
+  "buttons": {
+    "back": "Quay lại",
+    "next": "Tiếp theo",
+    "start": "Bắt đầu game",
+    "continue": "Tiếp tục",
+    "playAgain": "Chơi lại",
+    "newGroup": "Tạo nhóm mới",
+    "viewRules": "Xem luật chơi",
+    "finishDiscussion": "Kết thúc thảo luận",
+    "nextPlayer": "Người tiếp theo",
+    "confirmVote": "Xác nhận bỏ phiếu",
+    "home": "Trang chủ",
+    "rules": "Luật chơi"
+  },
+  "labels": {
+    "player": "Người chơi",
+    "round": "Vòng",
+    "currentPlayer": "Người chơi hiện tại",
+    "keyword": "Từ khóa",
+    "wordPair": "Cặp từ khóa",
+    "role": "Vai trò",
+    "status": "Trạng thái"
+  }
+}

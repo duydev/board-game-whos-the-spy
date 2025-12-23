@@ -1,0 +1,14 @@
+{
+  "title": "Nhập tên người chơi",
+  "subtitle": "Nhập tên cho {{count}} người chơi",
+  "playerList": {
+    "title": "Danh sách người chơi",
+    "description": "Nhập tên cho từng người chơi"
+  },
+  "playerLabel": "Người chơi {{index}}",
+  "placeholder": "Nhập tên người chơi {{index}}",
+  "errors": {
+    "emptyNames": "Vui lòng nhập đầy đủ tên cho tất cả người chơi!",
+    "duplicateNames": "Tên người chơi không được trùng nhau!"
+  }
+}

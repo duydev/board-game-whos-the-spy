@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -13,6 +14,7 @@ import {
 import { getAvailableCategories } from '@/utils/gameLogic';
 
 export const Setup = () => {
+  const { t } = useTranslation(['pages/setup', 'errors', 'common']);
   const navigate = useNavigate();
   const [totalPlayers, setTotalPlayers] = useState<number>(4);
   const [numberOfSpies, setNumberOfSpies] = useState<number>(1);
@@ -22,7 +24,7 @@ export const Setup = () => {
 
   const handleNext = () => {
     if (numberOfSpies >= totalPlayers) {
-      alert('Số gián điệp phải nhỏ hơn số người chơi!');
+      alert(t('errors:spiesMustBeLessThanPlayers'));
       return;
     }
 
@@ -41,14 +43,14 @@ export const Setup = () => {
   return (
     <div className="max-w-2xl mx-auto space-y-6">
       <div className="text-center">
-        <h1 className="text-4xl font-bold mb-2">Thiết lập game</h1>
-        <p className="text-muted-foreground">Chọn cấu hình cho game mới</p>
+        <h1 className="text-4xl font-bold mb-2">{t('title')}</h1>
+        <p className="text-muted-foreground">{t('subtitle')}</p>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Số lượng người chơi</CardTitle>
-          <CardDescription>Chọn số người sẽ tham gia (3-10 người)</CardDescription>
+          <CardTitle>{t('totalPlayers.title')}</CardTitle>
+          <CardDescription>{t('totalPlayers.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex items-center gap-4">
@@ -89,8 +91,8 @@ export const Setup = () => {
 
       <Card>
         <CardHeader>
-          <CardTitle>Số lượng gián điệp</CardTitle>
-          <CardDescription>Chọn số gián điệp (1-{maxSpies})</CardDescription>
+          <CardTitle>{t('numberOfSpies.title')}</CardTitle>
+          <CardDescription>{t('numberOfSpies.description', { maxSpies })}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex items-center gap-4">
@@ -118,25 +120,23 @@ export const Setup = () => {
             </div>
           </div>
           {numberOfSpies >= totalPlayers && (
-            <p className="text-destructive text-sm mt-2">
-              Số gián điệp phải nhỏ hơn số người chơi!
-            </p>
+            <p className="text-destructive text-sm mt-2">{t('numberOfSpies.error')}</p>
           )}
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader>
-          <CardTitle>Thể loại từ khóa</CardTitle>
-          <CardDescription>Chọn thể loại từ khóa hoặc để ngẫu nhiên</CardDescription>
+          <CardTitle>{t('category.title')}</CardTitle>
+          <CardDescription>{t('category.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <Select value={category} onValueChange={setCategory}>
             <SelectTrigger>
-              <SelectValue placeholder="Chọn thể loại" />
+              <SelectValue placeholder={t('category.placeholder')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="random">Ngẫu nhiên</SelectItem>
+              <SelectItem value="random">{t('category.random')}</SelectItem>
               {availableCategories.map((cat) => (
                 <SelectItem key={cat} value={cat}>
                   {cat}
@@ -149,10 +149,10 @@ export const Setup = () => {
 
       <div className="flex gap-4 justify-end">
         <Button variant="outline" onClick={() => navigate('/rules')}>
-          Xem luật chơi
+          {t('common:buttons.viewRules')}
         </Button>
         <Button onClick={handleNext} disabled={numberOfSpies >= totalPlayers}>
-          Tiếp theo
+          {t('common:buttons.next')}
         </Button>
       </div>
     </div>

@@ -1,10 +1,12 @@
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useGame } from '@/contexts/GameContext';
 import { RoleCard } from '@/components/RoleCard';
 
 export const GameResult = () => {
+  const { t } = useTranslation(['pages/gameResult', 'common']);
   const navigate = useNavigate();
   const { gameState, resetGame } = useGame();
 
@@ -24,20 +26,20 @@ export const GameResult = () => {
     navigate('/');
   };
 
-  const winnerText = gameState.winner === 'civilians' ? 'Dân thường thắng!' : 'Gián điệp thắng!';
+  const winnerText = gameState.winner === 'civilians' ? t('civiliansWin') : t('spiesWin');
   const winnerColor = gameState.winner === 'civilians' ? 'text-green-600' : 'text-red-600';
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="text-center">
-        <h1 className="text-4xl font-bold mb-2">Kết quả game</h1>
+        <h1 className="text-4xl font-bold mb-2">{t('title')}</h1>
         <h2 className={`text-3xl font-bold ${winnerColor} mt-4`}>{winnerText}</h2>
       </div>
 
       {gameState.wordPair && (
         <Card>
           <CardHeader>
-            <CardTitle>Cặp từ khóa đã sử dụng</CardTitle>
+            <CardTitle>{t('wordPairUsed')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-center">
@@ -51,7 +53,7 @@ export const GameResult = () => {
 
       <Card>
         <CardHeader>
-          <CardTitle>Vai trò của từng người chơi</CardTitle>
+          <CardTitle>{t('playerRoles')}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -64,10 +66,10 @@ export const GameResult = () => {
 
       <div className="flex gap-4 justify-center">
         <Button onClick={handlePlayAgain} size="lg" variant="outline">
-          Chơi lại
+          {t('common:buttons.playAgain')}
         </Button>
         <Button onClick={handleNewGroup} size="lg">
-          Tạo nhóm mới
+          {t('common:buttons.newGroup')}
         </Button>
       </div>
     </div>

@@ -1,0 +1,70 @@
+{
+  "title": "Luật chơi \"Ai là gián điệp?\"",
+  "subtitle": "Hướng dẫn chi tiết cách chơi",
+  "preparation": {
+    "title": "1. Chuẩn bị",
+    "description": "Trước khi bắt đầu, bạn cần:",
+    "items": [
+      "Chọn số lượng người chơi (tối thiểu 3 người, tối đa 10 người)",
+      "Chọn số lượng gián điệp (thường là 1-2 gián điệp tùy số người chơi)",
+      "Chọn thể loại từ khóa hoặc để ngẫu nhiên",
+      "Nhập tên của tất cả người chơi"
+    ]
+  },
+  "roleAssignment": {
+    "title": "2. Phân vai",
+    "description": "Sau khi setup, hệ thống sẽ tự động:",
+    "items": [
+      "Chọn ngẫu nhiên một cặp từ từ thể loại đã chọn",
+      "Phân phối vai trò cho từng người chơi:"
+    ],
+    "civilianRole": "Dân thường: Nhận một từ khóa (một trong hai từ của cặp từ)",
+    "spyRole": "Gián điệp: Không biết từ khóa, chỉ thấy dấu \"?\""
+  },
+  "discussion": {
+    "title": "3. Vòng thảo luận",
+    "description": "Người chơi lần lượt mô tả từ khóa của mình:",
+    "items": [
+      "Mỗi người có 2 phút để thảo luận",
+      "Người chơi lần lượt mô tả từ khóa của mình KHÔNG được nói trực tiếp từ đó",
+      "Dân thường sẽ mô tả từ khóa của mình",
+      "Gián điệp phải đoán và mô tả sao cho không bị phát hiện",
+      "Mọi người có thể đặt câu hỏi và thảo luận"
+    ]
+  },
+  "voting": {
+    "title": "4. Bỏ phiếu (Vote)",
+    "description": "Sau khi thảo luận xong, tất cả người chơi sẽ bỏ phiếu:",
+    "items": [
+      "Mỗi người chọn một người mà họ nghi ngờ là gián điệp",
+      "Không được bỏ phiếu cho chính mình",
+      "Người nhận được nhiều phiếu nhất sẽ bị loại",
+      "Nếu có nhiều người cùng số phiếu, hệ thống sẽ chọn ngẫu nhiên"
+    ]
+  },
+  "winConditions": {
+    "title": "5. Điều kiện thắng",
+    "description": "Trò chơi kết thúc khi một trong hai phe thắng:",
+    "civilianWin": "Dân thường thắng: Khi tất cả gián điệp đã bị loại",
+    "spyWin": "Gián điệp thắng: Khi số lượng gián điệp còn lại bằng hoặc nhiều hơn số dân thường còn lại",
+    "continue": "Nếu chưa có phe nào thắng, trò chơi tiếp tục với vòng thảo luận mới."
+  },
+  "gameEnd": {
+    "title": "6. Kết thúc game",
+    "description": "Khi game kết thúc:",
+    "items": [
+      "Hệ thống sẽ hiển thị vai trò thực tế của từng người chơi",
+      "Hiển thị cặp từ khóa đã được sử dụng",
+      "Bạn có thể chọn \"Chơi lại\" với cùng nhóm hoặc \"Tạo nhóm mới\""
+    ]
+  },
+  "tips": {
+    "title": "💡 Mẹo chơi",
+    "civilianTips": "Cho dân thường: Mô tả từ khóa một cách rõ ràng nhưng không quá trực tiếp. Quan sát cách người khác mô tả để tìm gián điệp.",
+    "spyTips": "Cho gián điệp: Lắng nghe cẩn thận và mô tả một cách chung chung. Cố gắng không quá khác biệt so với người khác.",
+    "generalTips": [
+      "Đặt câu hỏi thông minh để phát hiện sự không nhất quán",
+      "Chú ý đến ngôn ngữ cơ thể và cách trả lời của người khác"
+    ]
+  }
+}

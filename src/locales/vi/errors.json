@@ -1,0 +1,6 @@
+{
+  "spiesMustBeLessThanPlayers": "Số gián điệp phải nhỏ hơn số người chơi!",
+  "emptyPlayerNames": "Vui lòng nhập đầy đủ tên cho tất cả người chơi!",
+  "duplicatePlayerNames": "Tên người chơi không được trùng nhau!",
+  "cannotVoteSelf": "Bạn không thể vote cho chính mình!"
+}
