@@ -1,0 +1,10 @@
+{
+  "title": "Xem vai trò",
+  "subtitle": "{{name}}, hãy xem vai trò của bạn",
+  "yourRole": "Vai trò của bạn",
+  "confirmButton": "Đã xem xong",
+  "nextPlayer": "Chuyển sang người chơi tiếp theo",
+  "allPlayersViewed": "Tất cả người chơi đã xem vai trò",
+  "startDiscussion": "Bắt đầu thảo luận",
+  "progress": "Người chơi {{current}} / {{total}}"
+}

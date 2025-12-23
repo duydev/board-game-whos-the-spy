@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { UserPlus, User, ArrowLeft, Play } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -57,29 +58,38 @@ export const EnterNames = () => {
     const config: GameConfig = JSON.parse(configStr);
     try {
       await startGame(config, trimmedNames);
-      navigate('/discussion');
+      navigate('/view-role');
     } catch (error) {
       console.error('Failed to start game:', error);
-      alert(t('errors:failedToStartGame') || 'Failed to start game');
+      alert(t('errors:failedToStartGame'));
     }
   };
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <div className="max-w-2xl mx-auto space-y-6 sm:space-y-8 md:space-y-10">
       <div className="text-center">
-        <h1 className="text-4xl font-bold mb-2">{t('title')}</h1>
-        <p className="text-muted-foreground">{t('subtitle', { count: totalPlayers })}</p>
+        <div className="flex items-center justify-center gap-3 mb-2">
+          <UserPlus className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 text-primary" />
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold">{t('title')}</h1>
+        </div>
+        <p className="text-sm sm:text-base md:text-lg text-muted-foreground">
+          {t('subtitle', { count: totalPlayers })}
+        </p>
       </div>
 
-      <Card>
+      <Card className="shadow-sm">
         <CardHeader>
-          <CardTitle>{t('playerList.title')}</CardTitle>
+          <CardTitle className="flex items-center gap-2">
+            <User className="h-5 w-5 text-primary" />
+            {t('playerList.title')}
+          </CardTitle>
           <CardDescription>{t('playerList.description')}</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-4 sm:space-y-5 md:space-y-6">
           {playerNames.map((name, index) => (
             <div key={index} className="space-y-2">
-              <label className="text-sm font-medium">
+              <label className="text-sm font-medium flex items-center gap-2">
+                <User className="h-4 w-4 text-muted-foreground" />
                 {t('playerLabel', { index: index + 1 })}
               </label>
               <Input
@@ -87,18 +97,29 @@ export const EnterNames = () => {
                 value={name}
                 onChange={(e) => handleNameChange(index, e.target.value)}
                 placeholder={t('placeholder', { index: index + 1 })}
-                className="w-full"
+                className="w-full min-h-[44px] text-base md:text-lg"
               />
             </div>
           ))}
         </CardContent>
       </Card>
 
-      <div className="flex gap-4 justify-end">
-        <Button variant="outline" onClick={() => navigate('/')}>
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 md:gap-6 justify-end">
+        <Button
+          variant="outline"
+          onClick={() => navigate('/')}
+          className="w-full sm:w-auto min-h-[44px] text-base md:text-lg"
+        >
+          <ArrowLeft className="h-4 w-4 md:h-5 md:w-5 mr-2" />
           {t('common:buttons.back')}
         </Button>
-        <Button onClick={handleStart}>{t('common:buttons.start')}</Button>
+        <Button
+          onClick={handleStart}
+          className="w-full sm:w-auto min-h-[44px] text-base md:text-lg"
+        >
+          {t('common:buttons.start')}
+          <Play className="h-4 w-4 md:h-5 md:w-5 ml-2" />
+        </Button>
       </div>
     </div>
   );

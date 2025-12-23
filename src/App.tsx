@@ -4,6 +4,7 @@ import { Layout } from '@/components/Layout';
 import { Setup } from '@/pages/Setup';
 import { Rules } from '@/pages/Rules';
 import { EnterNames } from '@/pages/EnterNames';
+import { ViewRole } from '@/pages/ViewRole';
 import { Discussion } from '@/pages/Discussion';
 import { Voting } from '@/pages/Voting';
 import { GameResult } from '@/pages/GameResult';
@@ -17,6 +18,7 @@ function App() {
             <Route path="/" element={<Setup />} />
             <Route path="/rules" element={<Rules />} />
             <Route path="/enter-names" element={<EnterNames />} />
+            <Route path="/view-role" element={<ViewRole />} />
             <Route path="/discussion" element={<Discussion />} />
             <Route path="/voting" element={<Voting />} />
             <Route path="/result" element={<GameResult />} />
