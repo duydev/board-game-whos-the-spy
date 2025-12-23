@@ -1,5 +1,14 @@
 {
   "appTitle": "Ai là gián điệp?",
   "home": "Trang chủ",
-  "rules": "Luật chơi"
+  "rules": "Luật chơi",
+  "footer": {
+    "madeWith": "Được tạo với",
+    "by": "bởi",
+    "authorName": "Trần Nhật Duy"
+  },
+  "themeToggle": {
+    "switchToDark": "Chuyển sang chế độ tối",
+    "switchToLight": "Chuyển sang chế độ sáng"
+  }
 }

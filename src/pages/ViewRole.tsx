@@ -39,24 +39,26 @@ export const ViewRole = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8 md:space-y-10">
-      <div className="text-center">
-        <div className="flex items-center justify-center gap-3 mb-2">
-          <Eye className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 text-primary" />
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold">{t('title')}</h1>
+    <div className="max-w-4xl mx-auto space-y-8 lg:space-y-12">
+      <div className="text-center space-y-4">
+        <div className="flex items-center justify-center gap-3">
+          <Eye className="h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14 text-primary animate-pulse" />
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+            {t('title')}
+          </h1>
         </div>
-        <p className="text-sm sm:text-base md:text-lg text-muted-foreground">
+        <p className="text-base sm:text-lg lg:text-xl text-muted-foreground">
           {t('subtitle', { name: currentPlayer.name })}
         </p>
-        <p className="text-xs sm:text-sm md:text-base text-muted-foreground mt-2">
+        <p className="text-sm lg:text-base text-muted-foreground">
           {t('progress', { current: currentPlayerIndex + 1, total: totalPlayers })}
         </p>
       </div>
 
-      <Card className="shadow-sm">
+      <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-center justify-center">
-            <Eye className="h-5 w-5 text-primary" />
+          <CardTitle className="flex items-center gap-3 text-xl lg:text-2xl text-center justify-center">
+            <Eye className="h-6 w-6 text-primary" />
             {t('yourRole')}
           </CardTitle>
         </CardHeader>
@@ -67,21 +69,17 @@ export const ViewRole = () => {
         </CardContent>
       </Card>
 
-      <div className="flex justify-center">
-        <Button
-          onClick={handleConfirm}
-          size="lg"
-          className="w-full sm:w-auto min-h-[44px] text-base md:text-lg"
-        >
+      <div className="flex justify-center pt-4">
+        <Button onClick={handleConfirm} size="lg" className="w-full sm:w-auto">
           {isLastPlayer ? (
             <>
               {t('startDiscussion')}
-              <ArrowRight className="h-4 w-4 md:h-5 md:w-5 ml-2" />
+              <ArrowRight className="h-5 w-5 ml-2" />
             </>
           ) : (
             <>
               {t('confirmButton')}
-              <CheckCircle className="h-4 w-4 md:h-5 md:w-5 ml-2" />
+              <CheckCircle className="h-5 w-5 ml-2" />
             </>
           )}
         </Button>
